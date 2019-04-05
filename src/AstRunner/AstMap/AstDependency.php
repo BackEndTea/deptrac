@@ -73,4 +73,9 @@ class AstDependency
     {
         return new self($class, $line, 'catch');
     }
+
+    public static function variable(string $class, int $line): self
+    {
+        return new self($class, $line, 'variable');
+    }
 }

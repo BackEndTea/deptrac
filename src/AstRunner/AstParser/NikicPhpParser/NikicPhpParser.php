@@ -11,6 +11,7 @@ use SensioLabs\Deptrac\AstRunner\AstMap\AstClassReference;
 use SensioLabs\Deptrac\AstRunner\AstMap\AstFileReference;
 use SensioLabs\Deptrac\AstRunner\AstParser\AstFileReferenceCacheInterface;
 use SensioLabs\Deptrac\AstRunner\AstParser\AstParserInterface;
+use SensioLabs\Deptrac\AstRunner\Resolver\AnnotationDependencyResolver;
 
 class NikicPhpParser implements AstParserInterface
 {
@@ -52,7 +53,7 @@ class NikicPhpParser implements AstParserInterface
 
         $traverser = new NodeTraverser();
         $traverser->addVisitor(new NameResolver());
-        $traverser->addVisitor(new AstClassReferenceResolver($fileReference));
+        $traverser->addVisitor(new AstClassReferenceResolver($fileReference, [new AnnotationDependencyResolver()]));
 
         $traverser->traverse($this->fileParser->parse($data));
 
